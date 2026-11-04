@@ -14,10 +14,8 @@ export default defineConfig({
     },
     workbox: {
       navigateFallback: '/index.html',
-      runtimeCaching: [{
-        urlPattern: ({url}) => url.pathname === '/api/songs',
-        handler: 'NetworkFirst', options: {cacheName:'songs-data', networkTimeoutSeconds:3, expiration:{maxEntries:3,maxAgeSeconds:86400}}
-      }]
+      // Never cache authenticated API responses in the service worker.
+      runtimeCaching: []
     }
   })],
   server: { proxy: { '/api': 'http://localhost:8000' } }
